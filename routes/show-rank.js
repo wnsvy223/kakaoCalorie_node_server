@@ -42,12 +42,14 @@ router.post('/', function (req, res, next) {
                 if(err){
                     callback(err);
                 }else{
+                    console.log('정렬' + JSON.stringify(arr));
                     callback(null,arr); // 결과값 Json Obj Array를 앱에 전송
                 }
             });
 
+            var sortingField = 'footstep';
             var sortArray = function(a, b){ // 결과값 Json Obj Array의 footstep 값을 비교해 정렬
-                if(a.footstep == b.footstep){ return 0 } return a.footstep > b.footstep ? -1 : 1;
+                return b[sortingField] - a[sortingField];
             };
 
             var callback = function(err, result){ // 결과값 클라이언트앱 전송 콜백

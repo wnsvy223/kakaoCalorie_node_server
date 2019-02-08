@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var showAllData = require('./routes/show-all-data'); // 사용자 조회 
@@ -26,8 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/show-all-data',showAllData); // 브라우저 url경로로 ip주소:port/show-all-data번호 로 브라우저 접속시 전체유저목록 값 나옴.
-app.use('/create-user',createUser); // 사용자정보 DB 생성 or 이미 있으면 로그인 처리 모듈
+app.use('/show-all-data',showAllData); // 전체유저목록 값
+app.use('/create-user',createUser); // 사용자정보 DB 생성 or 이미 있으면 로그인 로그 출력 처리
 app.use('/send-count',sendCount); // 만보기 카운트 전송
 app.use('/show-rank',showRank); // 순위 조회
 // catch 404 and forward to error handler
@@ -45,5 +47,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+server.listen(3000, function() {
+  console.log('Socket IO server listening on port 3000');
+});
+
+io.on('connection', function(socket){ console.log('socketio user connected...'); });
 
 module.exports = app;
