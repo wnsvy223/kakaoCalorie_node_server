@@ -16,7 +16,8 @@ var pool = mysql.createPool({
     password: "root",
     database : "kakaocalorie",
     connectionLimit : 50,
-    charset: 'utf8'
+    charset: 'utf8',
+    multipleStatements : true // 다중쿼리
 });
 
 module.exports = pool;

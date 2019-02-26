@@ -12,6 +12,7 @@ var showAllData = require('./routes/show-all-data'); // 사용자 조회
 var createUser = require('./routes/create-user'); // 사용자 생성
 var sendCount = require('./routes/send-count'); // 만보기 카운트 
 var showRank = require('./routes/show-rank'); // 순위 조회
+var userData = require('./routes/usersData'); // 특정 유저 조회
 //var mysqlDB = require('./mysqlDB');
 //mysqlDB.connect(); // 커넥션
 
@@ -32,6 +33,7 @@ app.use('/show-all-data',showAllData); // 전체유저목록 값
 app.use('/create-user',createUser); // 사용자정보 DB 생성 or 이미 있으면 로그인 로그 출력 처리
 app.use('/send-count',sendCount); // 만보기 카운트 전송
 app.use('/show-rank',showRank); // 순위 조회
+app.use('/usersData',userData); // 특정 유저 조회
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
