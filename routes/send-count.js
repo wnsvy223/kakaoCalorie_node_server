@@ -6,8 +6,9 @@ router.post('/', function (req, res, next) {
     var userEmail = req.body['userEmail'];
     var stepCount = req.body['stepCount'];
     var distance = req.body['distance'];
+    var calorie = req.body['calorie'];
     
-    const createTable = 'create table footstep(userEmail varchar(30) primary key, footstep varchar(100), distance varchar(100));'
+    const createTable = 'create table footstep(userEmail varchar(30) primary key, footstep varchar(100), distance varchar(100), calorie varchar(100));'
 
     mysqlDB.getConnection(function(err, connection){
        if(err){
@@ -20,9 +21,9 @@ router.post('/', function (req, res, next) {
                             console.log('신규 테이블 생성' + JSON.stringify(rows));
                         });
                     }
-                    connection.query('replace into footstep values(?,?,?)',[userEmail,stepCount,distance],function(err,rows,fields){
+                    connection.query('replace into footstep values(?,?,?,?)',[userEmail,stepCount,distance,calorie],function(err,rows,fields){
                         if(!err){
-                            console.log('테이블(footstep) 데이터 삽입 성공 - ' +'userEmail:'+ userEmail + 'stepCount:'+stepCount + 'distance' + distance);
+                            console.log('테이블(footstep) 데이터 삽입 성공 - ' +'userEmail:'+ userEmail + 'stepCount:'+stepCount + 'distance' + distance + 'calorie' + calorie);
                             res.send(rows);
                         }else{
                             console.log('테이블(footstep) 데이터 삽입 에러'+err);
